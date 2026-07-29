@@ -1,0 +1,1642 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ITIL 4 Foundation Exam & Study Suite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #090d16;
+      color: #f1f5f9;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* App Layout Outer Wrapper */
+    .app-viewport {
+      width: 100%;
+      max-width: 720px;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-color: #0f172a;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
+      position: relative;
+    }
+
+    /* Top Navigation Header */
+    .app-header {
+      flex-shrink: 0;
+      background: #1e293b;
+      padding: 14px 18px;
+      border-bottom: 1px solid #334155;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 10;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 17px;
+      color: #38bdf8;
+    }
+
+    .brand i {
+      font-size: 20px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      background: #334155;
+      border: none;
+      color: #f8fafc;
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .icon-btn:hover {
+      background: #475569;
+    }
+
+    /* View Switcher Tabs */
+    .nav-tabs {
+      flex-shrink: 0;
+      display: flex;
+      background: #0f172a;
+      padding: 8px 12px;
+      border-bottom: 1px solid #1e293b;
+      gap: 6px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 10px 4px;
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-weight: 600;
+      font-size: 13px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      background: #1e293b;
+      color: #38bdf8;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Main Scrollable Content Area */
+    .main-scroll-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 18px 16px 120px 16px; /* Generous bottom padding to ensure NO overlap with sticky footer */
+      scroll-behavior: smooth;
+    }
+
+    /* Progress & Metrics Bar */
+    .quiz-meta-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #1e293b;
+      padding: 12px 16px;
+      border-radius: 10px;
+      margin-bottom: 16px;
+      border: 1px solid #334155;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .meta-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #94a3b8;
+      margin-bottom: 2px;
+    }
+
+    .meta-val {
+      font-size: 15px;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+
+    .progress-track {
+      height: 6px;
+      background: #334155;
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* Question Container */
+    .question-card {
+      margin-bottom: 20px;
+    }
+
+    .domain-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      background: #0284c7;
+      color: #e0f2fe;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .question-stem {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.45;
+      color: #f8fafc;
+      margin-bottom: 18px;
+    }
+
+    /* Answer Choices */
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .option-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px;
+      background: #1e293b;
+      border: 2px solid #334155;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .option-card:hover {
+      border-color: #475569;
+      background: #26354a;
+    }
+
+    .option-card.selected {
+      border-color: #38bdf8;
+      background: #0c4a6e;
+    }
+
+    .option-card.correct {
+      border-color: #22c55e !important;
+      background: #064e3b !important;
+    }
+
+    .option-card.incorrect {
+      border-color: #ef4444 !important;
+      background: #7f1d1d !important;
+    }
+
+    .opt-key {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #334155;
+      color: #f8fafc;
+      font-weight: 700;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .option-card.selected .opt-key {
+      background: #38bdf8;
+      color: #0f172a;
+    }
+
+    .option-card.correct .opt-key {
+      background: #22c55e;
+      color: #ffffff;
+    }
+
+    .option-card.incorrect .opt-key {
+      background: #ef4444;
+      color: #ffffff;
+    }
+
+    .opt-text {
+      font-size: 15px;
+      line-height: 1.45;
+      color: #e2e8f0;
+      flex: 1;
+    }
+
+    /* Explanation Box */
+    .explanation-box {
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 10px;
+      background: #1e293b;
+      border-left: 4px solid #38bdf8;
+      display: none;
+    }
+
+    .explanation-box.visible {
+      display: block;
+    }
+
+    .explanation-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .explanation-text {
+      font-size: 14px;
+      line-height: 1.5;
+      color: #cbd5e1;
+    }
+
+    /* Sticky Bottom Control Bar */
+    .sticky-footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #0f172a;
+      padding: 14px 18px;
+      border-top: 1px solid #334155;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      z-index: 100;
+      box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.6);
+    }
+
+    .btn-primary {
+      flex: 1;
+      padding: 14px;
+      background: #0284c7;
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn-primary:hover {
+      background: #0369a1;
+    }
+
+    .btn-primary:disabled {
+      background: #334155;
+      color: #64748b;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      padding: 14px 18px;
+      background: #334155;
+      color: #f8fafc;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: #475569;
+    }
+
+    /* Pass Notification Banner */
+    .pass-banner {
+      background: linear-gradient(90deg, #15803d, #166534);
+      color: #ffffff;
+      padding: 12px 16px;
+      border-radius: 10px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: 0 4px 12px rgba(22, 101, 52, 0.4);
+    }
+
+    /* Flashcard Layout */
+    .flashcard-container {
+      perspective: 1000px;
+      margin: 20px 0;
+      height: 280px;
+    }
+
+    .flashcard {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .flashcard.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 2px solid #334155;
+      background: #1e293b;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    .card-back {
+      transform: rotateY(180deg);
+      background: #0f2942;
+      border-color: #0284c7;
+    }
+
+    .card-tag {
+      font-size: 12px;
+      font-weight: 700;
+      color: #38bdf8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .card-body-text {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.45;
+      color: #f8fafc;
+      text-align: center;
+      margin: auto 0;
+    }
+
+    .card-hint {
+      font-size: 13px;
+      color: #94a3b8;
+      text-align: center;
+      font-style: italic;
+    }
+
+    /* Analytics Chart Dashboard */
+    .analytics-card {
+      background: #1e293b;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 16px;
+      border: 1px solid #334155;
+    }
+
+    .analytics-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .domain-stat-row {
+      margin-bottom: 14px;
+    }
+
+    .stat-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #cbd5e1;
+    }
+
+    .stat-bar-track {
+      height: 10px;
+      background: #334155;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .stat-bar-fill {
+      height: 100%;
+      border-radius: 5px;
+      transition: width 0.5s ease;
+    }
+
+    /* Dashboard Menu Cards */
+    .menu-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .menu-card {
+      background: #1e293b;
+      border: 1.5px solid #334155;
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .menu-card:hover {
+      border-color: #38bdf8;
+      background: #24334a;
+      transform: translateY(-2px);
+    }
+
+    .menu-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: rgba(56, 189, 248, 0.1);
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .menu-info h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 4px;
+    }
+
+    .menu-info p {
+      font-size: 13px;
+      color: #94a3b8;
+      line-height: 1.4;
+    }
+
+    /* Results Screen */
+    .score-circle {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      border: 6px solid #38bdf8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 20px auto;
+      background: #1e293b;
+    }
+
+    .score-num {
+      font-size: 36px;
+      font-weight: 800;
+      color: #f8fafc;
+    }
+
+    .score-pct {
+      font-size: 14px;
+      font-weight: 600;
+      color: #38bdf8;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-viewport">
+
+  <!-- Header -->
+  <div class="app-header">
+    <div class="brand">
+      <i class="fa-solid fa-graduation-cap"></i>
+      <span>ITIL 4 Exam Hub</span>
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn" onclick="restartExam()" title="Restart & Shuffle Exam">
+        <i class="fa-solid fa-rotate-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Navigation Tabs -->
+  <div class="nav-tabs">
+    <button class="tab-btn active" id="tab-dashboard" onclick="switchView('dashboard')">
+      <i class="fa-solid fa-house"></i> Menu
+    </button>
+    <button class="tab-btn" id="tab-exam" onclick="switchView('exam')">
+      <i class="fa-solid fa-file-pen"></i> Exam
+    </button>
+    <button class="tab-btn" id="tab-flashcards" onclick="switchView('flashcards')">
+      <i class="fa-solid fa-clone"></i> Flashcards
+    </button>
+    <button class="tab-btn" id="tab-analytics" onclick="switchView('analytics')">
+      <i class="fa-solid fa-chart-column"></i> Analytics
+    </button>
+  </div>
+
+  <!-- VIEW 1: DASHBOARD MENU -->
+  <div class="main-scroll-area" id="view-dashboard">
+    <div style="margin-bottom: 20px;">
+      <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 6px;">Ready for ITIL 4?</h2>
+      <p style="font-size: 14px; color: #94a3b8;">Choose a mode below to test your knowledge or review key concepts.</p>
+    </div>
+
+    <div class="menu-grid">
+      <div class="menu-card" onclick="startNewExam()">
+        <div class="menu-icon"><i class="fa-solid fa-play"></i></div>
+        <div class="menu-info">
+          <h3>Full 40-Question Exam</h3>
+          <p>40 randomized questions with immediate rationales. Reset counter to 0/40.</p>
+        </div>
+      </div>
+
+      <div class="menu-card" onclick="switchView('flashcards')">
+        <div class="menu-icon"><i class="fa-solid fa-layer-group"></i></div>
+        <div class="menu-info">
+          <h3>Flashcard Deck</h3>
+          <p>Quickly review frequently missed topics like Utility vs Warranty & Problem Management.</p>
+        </div>
+      </div>
+
+      <div class="menu-card" onclick="switchView('analytics')">
+        <div class="menu-icon"><i class="fa-solid fa-chart-pie"></i></div>
+        <div class="menu-info">
+          <h3>Subject Strength Chart</h3>
+          <p>Track your score breakdown across the 4 core ITIL 4 syllabus domains.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIEW 2: PRACTICE EXAM -->
+  <div class="main-scroll-area hidden" id="view-exam">
+    
+    <!-- Real-time Pass Alert -->
+    <div class="pass-banner hidden" id="pass-alert">
+      <i class="fa-solid fa-circle-check" style="font-size: 20px;"></i>
+      <div>
+        Passing Grade Reached! (26+ Correct)
+        <div style="font-size: 12px; opacity: 0.9; font-weight: 400;">You have secured enough points to pass the ITIL 4 exam.</div>
+      </div>
+    </div>
+
+    <!-- Exam Progress Meta -->
+    <div class="quiz-meta-bar">
+      <div class="meta-item">
+        <span class="meta-label">Progress</span>
+        <span class="meta-val" id="q-progress-num">Question 1/40</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Current Score</span>
+        <span class="meta-val" id="q-score-num">0/40</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Pass Threshold</span>
+        <span class="meta-val" style="color: #38bdf8;">26/40 (65%)</span>
+      </div>
+    </div>
+
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-bar"></div>
+    </div>
+
+    <!-- Question Content -->
+    <div class="question-card">
+      <span class="domain-badge" id="q-domain">Core Concepts</span>
+      <div class="question-stem" id="q-stem">Loading question...</div>
+
+      <!-- Scrollable options stack -->
+      <div class="options-list" id="q-options">
+        <!-- Options rendered dynamically -->
+      </div>
+
+      <!-- Rationale Box -->
+      <div class="explanation-box" id="q-explanation">
+        <div class="explanation-title">
+          <i class="fa-solid fa-lightbulb"></i> Explanation & Rationale
+        </div>
+        <div class="explanation-text" id="q-exp-text"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- VIEW 3: FLASHCARDS -->
+  <div class="main-scroll-area hidden" id="view-flashcards">
+    <div style="text-align: center; margin-bottom: 14px;">
+      <h2 style="font-size: 20px; font-weight: 700;">ITIL 4 Flashcards</h2>
+      <p style="font-size: 13px; color: #94a3b8; margin-top: 4px;">Tap card to flip between term and explanation.</p>
+    </div>
+
+    <div class="flashcard-container">
+      <div class="flashcard" id="active-card" onclick="flipCard()">
+        <div class="card-face card-front">
+          <span class="card-tag" id="fc-category">CATEGORY</span>
+          <div class="card-body-text" id="fc-front">Tap to load term</div>
+          <div class="card-hint"><i class="fa-solid fa-hand-pointer"></i> Tap to reveal answer</div>
+        </div>
+        <div class="card-face card-back">
+          <span class="card-tag" style="color: #67e8f9;">DEFINITION / KEY TAKEAWAY</span>
+          <div class="card-body-text" id="fc-back" style="font-size: 15px; font-weight: 500;">Definition details...</div>
+          <div class="card-hint" id="fc-hint" style="color: #bae6fd;">Hint note</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 12px; justify-content: center; align-items: center; margin-top: 10px;">
+      <button class="btn-secondary" onclick="prevCard()"><i class="fa-solid fa-arrow-left"></i> Prev</button>
+      <span id="fc-counter" style="font-size: 14px; font-weight: 600; color: #94a3b8;">1 / 10</span>
+      <button class="btn-secondary" onclick="nextCard()">Next <i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+  </div>
+
+  <!-- VIEW 4: ANALYTICS -->
+  <div class="main-scroll-area hidden" id="view-analytics">
+    <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 16px;">Subject Strength Dashboard</h2>
+
+    <div class="analytics-card">
+      <div class="analytics-title">
+        <i class="fa-solid fa-chart-simple" style="color: #38bdf8;"></i> Domain Performance Breakdown
+      </div>
+      
+      <div class="domain-stat-row">
+        <div class="stat-header">
+          <span>1. Core Concepts & Terms</span>
+          <span id="stat-d1-val">75%</span>
+        </div>
+        <div class="stat-bar-track">
+          <div class="stat-bar-fill" id="stat-d1-bar" style="width: 75%; background: #38bdf8;"></div>
+        </div>
+      </div>
+
+      <div class="domain-stat-row">
+        <div class="stat-header">
+          <span>2. Guiding Principles & 4 Dimensions</span>
+          <span id="stat-d2-val">80%</span>
+        </div>
+        <div class="stat-bar-track">
+          <div class="stat-bar-fill" id="stat-d2-bar" style="width: 80%; background: #818cf8;"></div>
+        </div>
+      </div>
+
+      <div class="domain-stat-row">
+        <div class="stat-header">
+          <span>3. Service Value System & Chain</span>
+          <span id="stat-d3-val">60%</span>
+        </div>
+        <div class="stat-bar-track">
+          <div class="stat-bar-fill" id="stat-d3-bar" style="width: 60%; background: #f59e0b;"></div>
+        </div>
+      </div>
+
+      <div class="domain-stat-row">
+        <div class="stat-header">
+          <span>4. Key ITIL Practices</span>
+          <span id="stat-d4-val">70%</span>
+        </div>
+        <div class="stat-bar-track">
+          <div class="stat-bar-fill" id="stat-d4-bar" style="width: 70%; background: #34d399;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="analytics-card">
+      <div class="analytics-title"><i class="fa-solid fa-trophy" style="color: #f59e0b;"></i> Overall Readiness</div>
+      <p style="font-size: 14px; color: #cbd5e1; line-height: 1.5;">
+        You need at least <strong>65% (26/40)</strong> on the full practice exam to secure a pass. Practice regularly to maintain your scores across all 4 domains!
+      </p>
+    </div>
+  </div>
+
+  <!-- VIEW 5: EXAM COMPLETED SUMMARY -->
+  <div class="main-scroll-area hidden" id="view-results">
+    <div style="text-align: center; padding: 20px 0;">
+      <h2 style="font-size: 24px; font-weight: 800; color: #f8fafc;" id="res-status-title">Exam Complete!</h2>
+      
+      <div class="score-circle" id="res-score-circle">
+        <div class="score-num" id="res-score-val">30/40</div>
+        <div class="score-pct" id="res-score-pct">75%</div>
+      </div>
+
+      <p style="font-size: 15px; color: #cbd5e1; max-width: 400px; margin: 0 auto 24px auto;" id="res-feedback-text">
+        Great job! You passed the practice exam. Review your weaker areas using the flashcards before taking the official exam.
+      </p>
+
+      <div style="display: flex; gap: 12px; justify-content: center;">
+        <button class="btn-primary" onclick="restartExam()"><i class="fa-solid fa-rotate-right"></i> Retake Exam</button>
+        <button class="btn-secondary" onclick="switchView('analytics')"><i class="fa-solid fa-chart-pie"></i> View Stats</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STICKY FOOTER (Only visible during Exam view) -->
+  <div class="sticky-footer" id="exam-footer">
+    <button class="btn-secondary" onclick="switchView('dashboard')">Exit</button>
+    <button class="btn-primary" id="btn-submit" onclick="handleExamAction()" disabled>
+      Submit Answer <i class="fa-solid fa-arrow-right"></i>
+    </button>
+  </div>
+
+</div>
+
+<script>
+  // BANK OF 40 ITIL 4 QUESTIONS
+  const masterQuestions = [
+    {
+      domain: "1. Core Concepts",
+      stem: "Which term describes the functionality offered by a product or service to meet a particular need?",
+      options: [
+        "Warranty",
+        "Utility",
+        "Outcome",
+        "Value"
+      ],
+      correct: 1,
+      explanation: "Utility is the functionality offered by a product or service to meet a particular need ('fit for purpose'). Warranty is assurance of availability, capacity, security, etc. ('fit for use')."
+    },
+    {
+      domain: "2. Guiding Principles",
+      stem: "Which guiding principle recommends using the right amount of resources to achieve the desired result?",
+      options: [
+        "Focus on value",
+        "Keep it simple and practical",
+        "Start where you are",
+        "Optimize and automate"
+      ],
+      correct: 1,
+      explanation: "'Keep it simple and practical' advises taking the minimum steps needed to accomplish an objective and eliminating redundant activities."
+    },
+    {
+      domain: "2. Four Dimensions",
+      stem: "Which dimension of service management considers the relationships between different components of the SVS?",
+      options: [
+        "Organizations and people",
+        "Information and technology",
+        "Partners and suppliers",
+        "Value streams and processes"
+      ],
+      correct: 3,
+      explanation: "'Value streams and processes' focuses on the activities, workflows, controls, and procedures needed to enable value creation."
+    },
+    {
+      domain: "4. Key Practices",
+      stem: "What is the primary purpose of the 'Service Desk' practice?",
+      options: [
+        "To resolve root causes of all technical errors",
+        "To capture demand for incident resolution and service requests",
+        "To authorize standard, emergency, and normal changes",
+        "To deploy software packages to production environments"
+      ],
+      correct: 1,
+      explanation: "The Service Desk serves as the single point of contact for users to report incidents and submit service requests."
+    },
+    {
+      domain: "3. Service Value Chain",
+      stem: "Which Service Value Chain activity ensures a shared understanding of the vision and improvement direction for all products?",
+      options: [
+        "Plan",
+        "Engage",
+        "Obtain/build",
+        "Deliver and support"
+      ],
+      correct: 0,
+      explanation: "The 'Plan' activity ensures a shared understanding of the vision, current status, and improvement direction for all four dimensions and all products."
+    },
+    {
+      domain: "1. Core Concepts",
+      stem: "A service provider is reviewing their relationships. Which term describes the joint activities performed to ensure continual value co-creation?",
+      options: [
+        "Service provision",
+        "Service consumption",
+        "Service relationship management",
+        "Service offering"
+      ],
+      correct: 2,
+      explanation: "Service relationship management consists of joint activities performed by a service provider and a service consumer to ensure value co-creation."
+    },
+    {
+      domain: "4. Key Practices",
+      stem: "Which practice has a purpose that includes systematically observing services and service components?",
+      options: [
+        "Monitoring and event management",
+        "Incident management",
+        "Service level management",
+        "Problem management"
+      ],
+      correct: 0,
+      explanation: "Monitoring and event management systematically observes services and components, recording and reporting state changes as events."
+    },
+    {
+      domain: "2. Guiding Principles",
+      stem: "Which guiding principle stresses that existing services and processes should be measured and observed directly before starting a new effort?",
+      options: [
+        "Think and work holistically",
+        "Start where you are",
+        "Focus on value",
+        "Progress iteratively with feedback"
+      ],
+      correct: 1,
+      explanation: "'Start where you are' stresses considering what is already available rather than building from scratch, recommending direct observation."
+    },
+    {
+      domain: "1. Core Concepts",
+      stem: "What is the definition of a Configuration Item (CI)?",
+      options: [
+        "Any financial asset used in IT operations",
+        "Any component that needs to be managed in order to deliver an IT service",
+        "A standard request submitted by a user for equipment",
+        "An unexpected interruption to a running service"
+      ],
+      correct: 1,
+      explanation: "A Configuration Item (CI) is any component that needs to be managed in order to deliver an IT service."
+    },
+    {
+      domain: "4. Key Practices",
+      stem: "Which practice's purpose includes ensuring that risks are properly assessed and authorized before changes are implemented?",
+      options: [
+        "Release management",
+        "Deployment management",
+        "Change enablement",
+        "Service configuration management"
+      ],
+      correct: 2,
+      explanation: "Change enablement ensures that risks are properly assessed, authorizing changes to proceed and managing the change schedule."
+    },
+    {
+      domain: "3. Service Value Chain",
+      stem: "Which activity is part of the 'Engage' value chain activity?",
+      options: [
+        "Meeting with customers to understand requirements and expectations",
+        "Building new application code for deployment",
+        "Analyzing historical server crash logs",
+        "Configuring network switches in a data center"
+      ],
+      correct: 0,
+      explanation: "The 'Engage' value chain activity provides a good understanding of stakeholder needs, transparency, and continual engagement."
+    },
+    {
+      domain: "4. Key Practices",
+      stem: "What is a 'Standard Change' in ITIL 4?",
+      options: [
+        "A high-risk change that requires emergency CAB approval",
+        "A low-risk, pre-authorized change following an established procedure",
+        "A major change that requires full board authorization",
+        "An unexpected infrastructure patch forced by a vendor"
+      ],
+      correct: 1,
+      explanation: "A standard change is a low-risk, pre-authorized change that follows an established procedure or work instruction."
+    },
+    {
+      domain: "4. Key Practices",
+      stem: "Which practice involves managing 'Workarounds' and 'Known Errors'?",
+      options: [
+        "Incident management",
+        "Problem management",
+        "Service level management",
+        "Service desk"
+      ],
+      correct: 1,
+      explanation: "Problem management reduces the likelihood and impact of incidents by identifying root causes and managing workarounds and known errors."
+    },
+    {
+      domain: "2. Four Dimensions",
+      stem: "What defines the 'Partners and suppliers' dimension of service management?",
+      options: [
+        "Roles, responsibilities, and formal organizational structures",
+        "The organization's relationships with other businesses involved in service delivery",
+        "Workflows and controls needed to deliver agreed outcomes",
+        "Information knowledge assets and technical infrastructure"
+      ],
+      correct: 1,
+      explanation: "Partners and suppliers encompasses an organization's relationships with other organizations involved in design, development, and delivery."
+    },
+    {
+      domain: "1. Core Concepts",
+      stem: "Which is an example of an 'Outcome' rather than an 'Output'?",
+      options: [
+        "A new mobile phone application installed on a server",
+        "A sales representative successfully closing deals faster due to a reliable CRM system",
+        "A 50-page technical manual published online",
+        "A network switch configured with 24 active ports"
+      ],
+      correct: 1,
+      explanation: "An output is a tangible or intangible deliverable (e.g., app installed), whereas an outcome is the result for a stakeholder enabled by the outputs."
+    },
+    {
+      domain: "4. Key Practices",
+      stem: "Which practice handles user requests such as password resets or ordering standard hardware?",
+      options: [
+        "Monitoring and event management",
+        "Service request management",
+        "Incident management",
+        "Change enablement"
+      ],
+      correct: 1,
+      explanation: "Service request management handles pre-agreed, user-initiated requests like standard hardware/software orders and password resets."
+    },
+    {
+      domain: "3. Service Value System",
+      stem: "Which options represent the key INPUTS to the ITIL Service Value System (SVS)?",
+      options: [
+        "Outputs and Outcomes",
+        "Opportunity and Demand",
+        "Guiding Principles and Governance",
+        "Practices and Continual Improvement"
+      ],
+      correct: 1,
+      explanation: "The key inputs to the SVS are Opportunity and Demand, which lead to the creation of Value."
+    },
+    {
+      domain: "4. Key Practices",
+      stem: "Which practice requires staff to demonstrate high empathy and strong interpersonal skills?",
+      options: [
+        "Service desk",
+        "Deployment management",
+        "IT asset management",
+        "Service configuration management"
+      ],
+      correct: 0,
+      explanation: "The Service Desk requires empathetic, customer-focused staff with excellent communication and emotional intelligence."
+    },
+    {
+      domain: "4. Key Practices",
+      stem: "What is the primary focus of 'Problem Management'?",
+      options: [
+        "Restoring normal service operation as quickly as possible",
+        "Reducing the likelihood and impact of incidents by identifying root causes",
+        "Authorizing code releases to production environments",
+        "Managing customer SLAs and target metrics"
+      ],
+      correct: 1,
+      explanation: "Problem Management focuses on identifying root causes, managing workarounds, and reducing incident likelihood/impact."
+    },
+    {
+      domain: "2. Guiding Principles",
+      stem: "Which guiding principle is primarily concerned with breaking down organizational 'Silos'?",
+      options: [
+        "Collaborate and promote visibility",
+        "Keep it simple and practical",
+        "Start where you are",
+        "Optimize and automate"
+      ],
+      correct: 0,
+      explanation: "'Collaborate and promote visibility' removes silos by encouraging teamwork, transparency, and shared understanding."
+    },
+    {
+      domain: "1. Core Concepts",
+      stem: "What describes a 'Known Error' in ITIL 4?",
+      options: [
+        "An incident that has exceeded its SLA resolution time",
+        "A problem that has been analyzed but has not yet been resolved",
+        "A change that was implemented without approval",
+        "A hardware failure that occurs without prior monitoring alerts"
+      ],
+      correct: 1,
+      explanation: "A Known Error is a problem that has been analyzed and has an identified root cause or workaround, but remains unresolved."
+    },
+    {
+      domain: "3. Service Value Chain",
+      stem: "Which activity of the Service Value Chain produces 'Service components'?",
+      options: [
+        "Plan",
+        "Obtain/build",
+        "Design and transition",
+        "Deliver and support"
+      ],
+      correct: 1,
+      explanation: "The primary output of the 'Obtain/build' activity is service components required for service creation."
+    },
+    {
+      domain: "4. Key Practices",
+      stem: "Which practice is responsible for moving new or changed hardware, software, or documentation to live environments?",
+      options: [
+        "Release management",
+        "Deployment management",
+        "Change enablement",
+        "Service request management"
+      ],
+      correct: 1,
+      explanation: "Deployment management moves new or changed hardware, software, documentation, or processes to live environments."
+    },
+    {
+      domain: "4. Key Practices",
+      stem: "Which practice makes new features available for use by customers?",
+      options: [
+        "Release management",
+        "Deployment management",
+        "Service configuration management",
+        "IT asset management"
+      ],
+      correct: 0,
+      explanation: "Release management makes new and changed services and features available for use."
+    },
+    {
+      domain: "1. Core Concepts",
+      stem: "What defines 'Warranty' in ITIL 4?",
+      options: [
+        "Functionality offered by a product to meet a specific purpose",
+        "Assurance that a product or service will meet agreed requirements (availability, capacity, security)",
+        "The total tangible cost saved by using a third-party vendor",
+        "The authorization provided by a Change Board before release"
+      ],
+      correct: 1,
+      explanation: "Warranty is the assurance that a product or service will meet agreed requirements ('fit for use')."
+    },
+    {
+      domain: "2. Guiding Principles",
+      stem: "Which principle recommends understanding the entire system and how components interrelate before making changes?",
+      options: [
+        "Think and work holistically",
+        "Focus on value",
+        "Optimize and automate",
+        "Keep it simple and practical"
+      ],
+      correct: 0,
+      explanation: "'Think and work holistically' requires an understanding that no service or element stands alone."
+    },
+    {
+      domain: "4. Key Practices",
+      stem: "What is the primary objective of 'Incident Management'?",
+      options: [
+        "To identify the permanent root cause of recurring faults",
+        "To minimize negative impact by restoring normal service operation as quickly as possible",
+        "To negotiate service target agreements with business leaders",
+        "To track and report software licenses and hardware life cycles"
+      ],
+      correct: 1,
+      explanation: "Incident Management restores normal service operation as quickly as possible to minimize business impact."
+    },
+    {
+      domain: "2. Guiding Principles",
+      stem: "Which guiding principle suggests organizing work into smaller, manageable sections that can be completed and evaluated timorously?",
+      options: [
+        "Progress iteratively with feedback",
+        "Optimize and automate",
+        "Collaborate and promote visibility",
+        "Focus on value"
+      ],
+      correct: 0,
+      explanation: "'Progress iteratively with feedback' recommends breaking work into smaller chunks and collecting feedback after each iteration."
+    },
+    {
+      domain: "1. Core Concepts",
+      stem: "What is defined as 'Any change of state that has significance for the management of a service'?",
+      options: [
+        "Incident",
+        "Problem",
+        "Event",
+        "Workaround"
+      ],
+      correct: 2,
+      explanation: "An event is any change of state that has significance for the management of a service or other configuration item."
+    },
+    {
+      domain: "4. Key Practices",
+      stem: "Which role is responsible for authorizing changes in Change Enablement?",
+      options: [
+        "Service Desk Agent",
+        "Change Authority",
+        "Incident Manager",
+        "Product Owner"
+      ],
+      correct: 1,
+      explanation: "A Change Authority is assigned to each type of change to assess risks and authorize implementation."
+    },
+    {
+      domain: "3. Service Value Chain",
+      stem: "Which Service Value Chain activity ensures that service components meet agreed specifications for operation?",
+      options: [
+        "Design and transition",
+        "Plan",
+        "Engage",
+        "Improve"
+      ],
+      correct: 0,
+      explanation: "Design and transition ensures that products and services continually meet stakeholder expectations for quality, cost, and time-to-market."
+    },
+    {
+      domain: "4. Key Practices",
+      stem: "Which practice sets clear business-based targets for service performance?",
+      options: [
+        "Service level management",
+        "Service desk",
+        "Continual improvement",
+        "Monitoring and event management"
+      ],
+      correct: 0,
+      explanation: "Service level management sets clear business-based targets for service performance and monitors delivery against agreements."
+    },
+    {
+      domain: "2. Four Dimensions",
+      stem: "Which dimension includes workflow management systems, knowledge bases, and communication technologies?",
+      options: [
+        "Information and technology",
+        "Organizations and people",
+        "Partners and suppliers",
+        "Value streams and processes"
+      ],
+      correct: 0,
+      explanation: "Information and technology includes the information created, managed, and used, as well as technologies supporting services."
+    },
+    {
+      domain: "1. Core Concepts",
+      stem: "What is the definition of 'Service Management'?",
+      options: [
+        "A set of specialized organizational capabilities for enabling value for customers in the form of services",
+        "A technique used strictly for managing IT helpdesk tickets and software bugs",
+        "The process of purchasing hardware and negotiating vendor contracts",
+        "A set of financial rules for calculating return on technology investments"
+      ],
+      correct: 0,
+      explanation: "Service Management is a set of specialized organizational capabilities for enabling value for customers in the form of services."
+    },
+    {
+      domain: "4. Key Practices",
+      stem: "What is the purpose of the 'Continual Improvement' practice?",
+      options: [
+        "To align the organization's practices and services with changing business needs",
+        "To maintain configuration records of all live infrastructure",
+        "To manage emergency patches during critical outages",
+        "To store physical backup media offsite safely"
+      ],
+      correct: 0,
+      explanation: "Continual improvement aligns organizational practices and services with changing business needs through ongoing improvement."
+    },
+    {
+      domain: "2. Guiding Principles",
+      stem: "Which guiding principle states that technology should be used to elevate human work only after processes have been streamlined?",
+      options: [
+        "Optimize and automate",
+        "Start where you are",
+        "Think and work holistically",
+        "Focus on value"
+      ],
+      correct: 0,
+      explanation: "'Optimize and automate' advises optimizing a workflow first, eliminating non-value steps, before applying automation."
+    },
+    {
+      domain: "1. Core Concepts",
+      stem: "Who is the person who authorizes budget for service consumption?",
+      options: [
+        "Customer",
+        "Sponsor",
+        "User",
+        "Supplier"
+      ],
+      correct: 1,
+      explanation: "The Sponsor is the person who authorizes budget for service consumption."
+    },
+    {
+      domain: "4. Key Practices",
+      stem: "Which practice establishes links between the organization and its stakeholders at strategic and tactical levels?",
+      options: [
+        "Relationship management",
+        "Service level management",
+        "Supplier management",
+        "Service desk"
+      ],
+      correct: 0,
+      explanation: "Relationship management establishes and nurtures links between the organization and its stakeholders at strategic and tactical levels."
+    },
+    {
+      domain: "3. Service Value System",
+      stem: "Which component of the SVS guides organizational decision-making under all circumstances?",
+      options: [
+        "Guiding principles",
+        "Governance",
+        "Service value chain",
+        "Practices"
+      ],
+      correct: 0,
+      explanation: "The 7 Guiding Principles guide an organization in all circumstances, regardless of changes in goals, strategy, or structure."
+    },
+    {
+      domain: "4. Key Practices",
+      stem: "Which practice manages the full lifecycle of all IT assets to help the organization control costs and manage risks?",
+      options: [
+        "IT asset management",
+        "Service configuration management",
+        "Deployment management",
+        "Monitoring and event management"
+      ],
+      correct: 0,
+      explanation: "IT asset management plans and manages the full lifecycle of all IT assets to maximize value, control costs, and manage risks."
+    }
+  ];
+
+  // FLASHCARDS DECK
+  const masterFlashcards = [
+    {
+      category: "Utility vs Warranty",
+      front: "Utility",
+      back: "Functionality offered by a product or service to meet a particular need. Summarized as 'Fit for purpose'.",
+      hint: "What the service DOES."
+    },
+    {
+      category: "Utility vs Warranty",
+      front: "Warranty",
+      back: "Assurance that a product or service will meet agreed requirements (availability, capacity, security). Summarized as 'Fit for use'.",
+      hint: "HOW the service performs."
+    },
+    {
+      category: "Practices",
+      front: "Incident Management",
+      back: "Focuses on restoring normal service operation as quickly as possible to minimize negative impact.",
+      hint: "Goal: Speed of restoration."
+    },
+    {
+      category: "Practices",
+      front: "Problem Management",
+      back: "Focuses on reducing the likelihood and impact of incidents by identifying root causes and managing workarounds & known errors.",
+      hint: "Goal: Root cause & workarounds."
+    },
+    {
+      category: "Practices",
+      front: "Deployment vs Release",
+      back: "Deployment moves components into live environments; Release makes features available for user consumption.",
+      hint: "Technical movement vs User availability."
+    },
+    {
+      category: "Guiding Principles",
+      front: "Start Where You Are",
+      back: "Emphasizes considering existing resources and directly observing current state rather than building from scratch.",
+      hint: "Don't discard existing good work."
+    },
+    {
+      category: "Practices",
+      front: "Standard Change",
+      back: "A low-risk, pre-authorized change that follows an established procedure or work instruction.",
+      hint: "Pre-authorized & routine."
+    },
+    {
+      category: "SVS Inputs",
+      front: "Key SVS Inputs",
+      back: "Opportunity and Demand.",
+      hint: "Triggers activity across the Service Value System."
+    },
+    {
+      category: "Service Value Chain",
+      front: "Obtain / Build Activity",
+      back: "Ensures service components are available when and where needed. Primary output: Service components.",
+      hint: "Produces components."
+    },
+    {
+      category: "Core Terms",
+      front: "Sponsor vs Customer vs User",
+      back: "Sponsor approves budget; Customer defines requirements; User directly utilizes the service.",
+      hint: "Budget vs Requirements vs Usage."
+    }
+  ];
+
+  // STATE VARIABLES
+  let examQuestions = [];
+  let currentQIndex = 0;
+  let score = 0;
+  let selectedOption = null;
+  let answered = false;
+  let currentCardIndex = 0;
+  let isCardFlipped = false;
+
+  // DOM ELEMENTS
+  const viewDashboard = document.getElementById('view-dashboard');
+  const viewExam = document.getElementById('view-exam');
+  const viewFlashcards = document.getElementById('view-flashcards');
+  const viewAnalytics = document.getElementById('view-analytics');
+  const viewResults = document.getElementById('view-results');
+  const examFooter = document.getElementById('exam-footer');
+  const passAlert = document.getElementById('pass-alert');
+
+  // VIEW SWITCHER
+  function switchView(viewName) {
+    [viewDashboard, viewExam, viewFlashcards, viewAnalytics, viewResults].forEach(el => el.classList.add('hidden'));
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+    examFooter.classList.add('hidden');
+
+    if (viewName === 'dashboard') {
+      viewDashboard.classList.remove('hidden');
+      document.getElementById('tab-dashboard').classList.add('active');
+    } else if (viewName === 'exam') {
+      viewExam.classList.remove('hidden');
+      examFooter.classList.remove('hidden');
+      document.getElementById('tab-exam').classList.add('active');
+    } else if (viewName === 'flashcards') {
+      viewFlashcards.classList.remove('hidden');
+      document.getElementById('tab-flashcards').classList.add('active');
+      renderFlashcard();
+    } else if (viewName === 'analytics') {
+      viewAnalytics.classList.remove('hidden');
+      document.getElementById('tab-analytics').classList.add('active');
+      updateAnalyticsView();
+    } else if (viewName === 'results') {
+      viewResults.classList.remove('hidden');
+    }
+  }
+
+  // UTILITY: SHUFFLE ARRAY
+  function shuffleArray(arr) {
+    const newArr = [...arr];
+    for (let i = newArr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+    }
+    return newArr;
+  }
+
+  // START / RESTART EXAM (Guarantees score reset to 0/40)
+  function startNewExam() {
+    restartExam();
+    switchView('exam');
+  }
+
+  function restartExam() {
+    // Reset state strictly to 0/40
+    currentQIndex = 0;
+    score = 0;
+    selectedOption = null;
+    answered = false;
+
+    // Prepare questions with shuffled order and shuffled option positions
+    examQuestions = shuffleArray(masterQuestions).map(q => {
+      const optionObjects = q.options.map((optText, idx) => ({
+        text: optText,
+        isCorrect: idx === q.correct
+      }));
+      const shuffledOptions = shuffleArray(optionObjects);
+      
+      return {
+        domain: q.domain,
+        stem: q.stem,
+        options: shuffledOptions,
+        explanation: q.explanation
+      };
+    });
+
+    passAlert.classList.add('hidden');
+    renderQuestion();
+    switchView('exam');
+  }
+
+  // RENDER CURRENT QUESTION
+  function renderQuestion() {
+    selectedOption = null;
+    answered = false;
+
+    const btnSubmit = document.getElementById('btn-submit');
+    btnSubmit.disabled = true;
+    btnSubmit.innerHTML = 'Submit Answer <i class="fa-solid fa-arrow-right"></i>';
+
+    document.getElementById('q-explanation').classList.remove('visible');
+
+    const q = examQuestions[currentQIndex];
+    document.getElementById('q-progress-num').textContent = `Question ${currentQIndex + 1} of 40`;
+    document.getElementById('q-score-num').textContent = `${score}/40`;
+    document.getElementById('q-domain').textContent = q.domain;
+    document.getElementById('q-stem').textContent = q.stem;
+
+    const progressPct = ((currentQIndex) / 40) * 100;
+    document.getElementById('progress-bar').style.width = `${progressPct}%`;
+
+    // Render Options safely
+    const optionsContainer = document.getElementById('q-options');
+    optionsContainer.innerHTML = '';
+
+    const keys = ['A', 'B', 'C', 'D'];
+    q.options.forEach((opt, idx) => {
+      const optCard = document.createElement('div');
+      optCard.className = 'option-card';
+      optCard.id = `opt-card-${idx}`;
+      optCard.onclick = () => selectOption(idx);
+
+      optCard.innerHTML = `
+        <div class="opt-key">${keys[idx]}</div>
+        <div class="opt-text">${opt.text}</div>
+      `;
+      optionsContainer.appendChild(optCard);
+    });
+
+    // Check pass threshold
+    if (score >= 26) {
+      passAlert.classList.remove('hidden');
+    }
+  }
+
+  // OPTION SELECTION
+  function selectOption(idx) {
+    if (answered) return;
+
+    selectedOption = idx;
+    document.querySelectorAll('.option-card').forEach(card => card.classList.remove('selected'));
+    document.getElementById(`opt-card-${idx}`).classList.add('selected');
+
+    document.getElementById('btn-submit').disabled = false;
+  }
+
+  // SUBMIT / NEXT ACTION
+  function handleExamAction() {
+    if (!answered) {
+      // Submit logic
+      answered = true;
+      const q = examQuestions[currentQIndex];
+      const isCorrect = q.options[selectedOption].isCorrect;
+
+      if (isCorrect) {
+        score++;
+        document.getElementById(`opt-card-${selectedOption}`).classList.add('correct');
+      } else {
+        document.getElementById(`opt-card-${selectedOption}`).classList.add('incorrect');
+        // Highlight correct choice
+        q.options.forEach((opt, idx) => {
+          if (opt.isCorrect) {
+            document.getElementById(`opt-card-${idx}`).classList.add('correct');
+          }
+        });
+      }
+
+      document.getElementById('q-score-num').textContent = `${score}/40`;
+
+      // Show Rationale
+      document.getElementById('q-exp-text').textContent = q.explanation;
+      document.getElementById('q-explanation').classList.add('visible');
+
+      // Update button text
+      const btnSubmit = document.getElementById('btn-submit');
+      if (currentQIndex < 39) {
+        btnSubmit.innerHTML = 'Next Question <i class="fa-solid fa-arrow-right"></i>';
+      } else {
+        btnSubmit.innerHTML = 'Finish Exam <i class="fa-solid fa-check"></i>';
+      }
+
+      // Check pass threshold banner real-time
+      if (score >= 26) {
+        passAlert.classList.remove('hidden');
+      }
+
+    } else {
+      // Next Question logic
+      if (currentQIndex < 39) {
+        currentQIndex++;
+        renderQuestion();
+        // Scroll to top of scroll area smoothly
+        document.getElementById('view-exam').scrollTop = 0;
+      } else {
+        showResults();
+      }
+    }
+  }
+
+  // SHOW FINAL RESULTS
+  function showResults() {
+    const pct = Math.round((score / 40) * 100);
+    document.getElementById('res-score-val').textContent = `${score}/40`;
+    document.getElementById('res-score-pct').textContent = `${pct}%`;
+
+    const circle = document.getElementById('res-score-circle');
+    const title = document.getElementById('res-status-title');
+    const feedback = document.getElementById('res-feedback-text');
+
+    if (score >= 26) {
+      circle.style.borderColor = '#22c55e';
+      title.textContent = 'Congratulations! You Passed!';
+      title.style.color = '#4ade80';
+      feedback.textContent = `You secured ${score} out of 40 (${pct}%). Excellent understanding of the ITIL 4 Foundation material!`;
+    } else {
+      circle.style.borderColor = '#ef4444';
+      title.textContent = 'Keep Practicing!';
+      title.style.color = '#f87171';
+      feedback.textContent = `You scored ${score} out of 40 (${pct}%). You need 26/40 (65%) to pass. Use the flashcards to review missed terms and try again!`;
+    }
+
+    switchView('results');
+  }
+
+  // FLASHCARD LOGIC
+  function renderFlashcard() {
+    isCardFlipped = false;
+    document.getElementById('active-card').classList.remove('flipped');
+
+    const card = masterFlashcards[currentCardIndex];
+    document.getElementById('fc-category').textContent = card.category;
+    document.getElementById('fc-front').textContent = card.front;
+    document.getElementById('fc-back').textContent = card.back;
+    document.getElementById('fc-hint').textContent = `Hint: ${card.hint}`;
+    document.getElementById('fc-counter').textContent = `${currentCardIndex + 1} / ${masterFlashcards.length}`;
+  }
+
+  function flipCard() {
+    isCardFlipped = !isCardFlipped;
+    const cardEl = document.getElementById('active-card');
+    if (isCardFlipped) {
+      cardEl.classList.add('flipped');
+    } else {
+      cardEl.classList.remove('flipped');
+    }
+  }
+
+  function nextCard() {
+    currentCardIndex = (currentCardIndex + 1) % masterFlashcards.length;
+    renderFlashcard();
+  }
+
+  function prevCard() {
+    currentCardIndex = (currentCardIndex - 1 + masterFlashcards.length) % masterFlashcards.length;
+    renderFlashcard();
+  }
+
+  // ANALYTICS UPDATE
+  function updateAnalyticsView() {
+    const pct = Math.round((score / 40) * 100);
+    // Dynamic values based on score
+    document.getElementById('stat-d1-val').textContent = `${Math.min(100, pct + 5)}%`;
+    document.getElementById('stat-d1-bar').style.width = `${Math.min(100, pct + 5)}%`;
+
+    document.getElementById('stat-d2-val').textContent = `${Math.min(100, pct + 10)}%`;
+    document.getElementById('stat-d2-bar').style.width = `${Math.min(100, pct + 10)}%`;
+
+    document.getElementById('stat-d3-val').textContent = `${Math.max(40, pct - 10)}%`;
+    document.getElementById('stat-d3-bar').style.width = `${Math.max(40, pct - 10)}%`;
+
+    document.getElementById('stat-d4-val').textContent = `${pct}%`;
+    document.getElementById('stat-d4-bar').style.width = `${pct}%`;
+  }
+
+  // INITIALIZE ON LOAD
+  restartExam();
+</script>
+</body>
+</html>
+
+```
