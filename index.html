@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <script src="questions.js"></script>
+<script src="flashcards.js"></script>
   <style>
     * {
       box-sizing: border-box;
@@ -814,70 +815,6 @@
 </div>
 
 <script>
-
-  // FLASHCARDS DECK
-  const masterFlashcards = [
-    {
-      category: "Utility vs Warranty",
-      front: "Utility",
-      back: "Functionality offered by a product or service to meet a particular need. Summarized as 'Fit for purpose'.",
-      hint: "What the service DOES."
-    },
-    {
-      category: "Utility vs Warranty",
-      front: "Warranty",
-      back: "Assurance that a product or service will meet agreed requirements (availability, capacity, security). Summarized as 'Fit for use'.",
-      hint: "HOW the service performs."
-    },
-    {
-      category: "Practices",
-      front: "Incident Management",
-      back: "Focuses on restoring normal service operation as quickly as possible to minimize negative impact.",
-      hint: "Goal: Speed of restoration."
-    },
-    {
-      category: "Practices",
-      front: "Problem Management",
-      back: "Focuses on reducing the likelihood and impact of incidents by identifying root causes and managing workarounds & known errors.",
-      hint: "Goal: Root cause & workarounds."
-    },
-    {
-      category: "Practices",
-      front: "Deployment vs Release",
-      back: "Deployment moves components into live environments; Release makes features available for user consumption.",
-      hint: "Technical movement vs User availability."
-    },
-    {
-      category: "Guiding Principles",
-      front: "Start Where You Are",
-      back: "Emphasizes considering existing resources and directly observing current state rather than building from scratch.",
-      hint: "Don't discard existing good work."
-    },
-    {
-      category: "Practices",
-      front: "Standard Change",
-      back: "A low-risk, pre-authorized change that follows an established procedure or work instruction.",
-      hint: "Pre-authorized & routine."
-    },
-    {
-      category: "SVS Inputs",
-      front: "Key SVS Inputs",
-      back: "Opportunity and Demand.",
-      hint: "Triggers activity across the Service Value System."
-    },
-    {
-      category: "Service Value Chain",
-      front: "Obtain / Build Activity",
-      back: "Ensures service components are available when and where needed. Primary output: Service components.",
-      hint: "Produces components."
-    },
-    {
-      category: "Core Terms",
-      front: "Sponsor vs Customer vs User",
-      back: "Sponsor approves budget; Customer defines requirements; User directly utilizes the service.",
-      hint: "Budget vs Requirements vs Usage."
-    }
-  ];
 
   // STATE VARIABLES
   let examQuestions = [];
