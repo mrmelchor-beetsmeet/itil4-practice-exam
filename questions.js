@@ -969,3 +969,12 @@ const questions = [
     explanation: "Service Continuity Management prepares organizations to maintain critical operations during major disaster events."
   }
 ];
+
+// Automatically translates the question bank to match your app's layout
+const masterQuestions = questions.map(q => ({
+  domain: q.category || q.domain,
+  stem: q.question || q.stem,
+  options: q.options,
+  correct: q.correct,
+  explanation: q.explanation
+}));
